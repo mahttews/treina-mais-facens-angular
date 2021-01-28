@@ -13,6 +13,7 @@ import { MatRadioModule } from '@angular/material/radio';
 import { MatInputModule } from '@angular/material/input';
 import { MatButtonModule } from '@angular/material/button';
 import { ReactiveFormsModule } from '@angular/forms';
+import { HttpClientModule } from '@angular/common/http';
 @NgModule({
   declarations: [
     AppComponent,
@@ -21,6 +22,7 @@ import { ReactiveFormsModule } from '@angular/forms';
   imports: [
     BrowserModule,
     ReactiveFormsModule,
+    HttpClientModule,
     AppRoutingModule,
     BrowserAnimationsModule,
     AngularFireModule.initializeApp(environment.firebaseConfig),

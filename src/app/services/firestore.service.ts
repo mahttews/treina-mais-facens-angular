@@ -10,8 +10,8 @@ export class FirestoreService {
     private _firestore: AngularFirestore,
   ) { }
 
-  setCollection(data: any) {
-    return this._firestore.collection('enderecos').add(data);
+  setCollection(data: any, collection: any) {
+    return this._firestore.collection(collection).add(data);
   }
 
   getColletion(collectionName: any) {
