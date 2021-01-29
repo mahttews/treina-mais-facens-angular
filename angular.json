@@ -125,6 +125,10 @@
               "devServerTarget": "ven-da-ja:serve:production"
             }
           }
+        },
+        "deploy": {
+          "builder": "@angular/fire:deploy",
+          "options": {}
         }
       }
     }

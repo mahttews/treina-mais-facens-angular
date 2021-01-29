@@ -1,0 +1,11 @@
+{
+  "targets": {
+    "curso-facens": {
+      "hosting": {
+        "ven-da-ja": [
+          "curso-facens"
+        ]
+      }
+    }
+  }
+}

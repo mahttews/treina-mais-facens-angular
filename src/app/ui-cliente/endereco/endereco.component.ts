@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { MatDialogRef } from '@angular/material/dialog';
+import { MatSnackBar } from '@angular/material/snack-bar';
 import { BuscaCepService } from 'src/app/services/busca-cep.service';
 import { FirestoreService } from 'src/app/services/firestore.service';
 
@@ -9,8 +11,7 @@ import { FirestoreService } from 'src/app/services/firestore.service';
   styleUrls: ['./endereco.component.scss']
 })
 export class EnderecoComponent implements OnInit {
-
-  enderecoGroup: FormGroup;
+  enderecoGroup: FormGroup | any;
   enderecosList: any[] = [];
   dataCep: any = {
     rua: '',
@@ -18,8 +19,11 @@ export class EnderecoComponent implements OnInit {
   };
 
   enderecoEntrega: string = '';
+  enderecoSelecionado: string = '';
 
   constructor(
+    private dialogRef: MatDialogRef<EnderecoComponent>,
+    private snack: MatSnackBar,
     private _fb: FormBuilder,
     public buscarCep: BuscaCepService,
     private _firestoreService: FirestoreService,
@@ -40,20 +44,30 @@ export class EnderecoComponent implements OnInit {
     // this.getEnderecoEntrega();
   }
 
+  onSelecionarEndereco() {
+    this.dialogRef.close({ endereco: this.enderecoSelecionado})
+  }
+
   onSalvar() {
     const formData = this.enderecoGroup.value;
     if (this.dataCep.rua != '') {
       formData.rua = this.dataCep.rua;
       formData.cidade = this.dataCep.cidade;
     }
-    this._firestoreService.setCollection(formData, 'enderecos').then(response => {
-      alert('Dados salvos com sucesso');
-      this.getEnderecos();
-    });
+    
+    let enderecos = []
+
+    if ( localStorage.getItem('enderecos') ) {
+      enderecos.push(JSON.parse(localStorage.getItem('enderecos') || ''));
+    }
+    enderecos.push(JSON.stringify({...formData}))
+    localStorage.setItem('enderecos', JSON.stringify(enderecos))
+
+    this.snack.open('Endereço salvo com sucesso!')
   }
 
   getEnderecos() {
-    this._firestoreService.getColletion('enderecos').subscribe((response: any[]) => {
+    this._firestoreService.getCollection('enderecos').subscribe((response: any[]) => {
       this.enderecosList = response;
     });
   }
@@ -64,29 +78,10 @@ export class EnderecoComponent implements OnInit {
     if (cep.length < 8) return;
 
     await this.buscarCep.buscarCEP(cep).subscribe((res: any) => {
-      debugger
       this.dataCep = {
         cidade: res.city,
         rua: `${res.street}/${res.state}`
       }
-
     })
   }
-
-  // getEnderecoEntrega() {
-  //   this._firestoreService.getColletion('enderecoEntrega').subscribe((response: any) => {
-  //     this.enderecoEntrega = response[3].enderecoEntrega;
-  //     console.log('enderecoEntrega:', this.enderecoEntrega);
-  //   });
-  // }
-
-  // onChangeEnderecoEntrega(e: any) {
-  //   debugger
-  //   console.log(e)
-  //   this.enderecoEntrega = e.value;
-  //   const endereco = {enderecoEntrega: this.enderecoEntrega};
-  //   this._firestoreService.setCollection(endereco,'enderecoEntrega').then(response => {
-  //   });
-  // }
-
 }

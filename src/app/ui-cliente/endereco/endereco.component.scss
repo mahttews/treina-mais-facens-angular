@@ -1,8 +1,12 @@
 .container {
-  width: 50%;
+  // width: 50%;
   padding: 30px;
   margin: auto;
   position: relative;
+}
+
+.col-auto {
+  width: 100%;
 }
 
 mat-card {

@@ -1,0 +1,18 @@
+<mat-toolbar class="mat-elevation-z4">
+    <mat-toolbar-row>
+        <h2>ven.da.ja</h2>
+        <span class="spacer"></span>
+        <button mat-stroked-button [matMenuTriggerFor]="menu">
+            <mat-icon>account_circle</mat-icon>
+            Usuario Logado
+        </button>
+        <mat-menu #menu="matMenu">
+            <button mat-menu-item>Item 1</button>
+            <button mat-menu-item>Item 2</button>
+          </mat-menu>
+    </mat-toolbar-row>
+</mat-toolbar>
+
+<div class="container">
+    <router-outlet></router-outlet>
+</div>

@@ -1,0 +1,46 @@
+<div class="container">
+  <div class="table-card">
+    <div class="table-title">Tabela de frete</div>
+
+    <div class="table-content">
+      <div fxLayout="row" fxLayoutAlign="center" *ngIf="showSpinner" class="spinner">
+        <mat-spinner></mat-spinner>
+      </div>
+
+      <div *ngIf="freteList.length == 0 && !showSpinner" class="info">
+        <span>Cadastre um frete Clicando no botão abaixo</span>
+      </div>
+
+      <table *ngIf="freteList.length > 0 && !showSpinner" id="data-table">
+        <thead>
+          <tr>
+            <th>#</th>
+            <th>De</th>
+            <th>Até</th>
+            <th>Valor</th>
+            <th>Grátis a partir de R$</th>
+            <th>Ações</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let frete of freteList; let i = index">
+            <td>{{ i }}</td>
+            <td>{{ frete['de'] }} KM</td>
+            <td>{{ frete['ate'] }} KM</td>
+            <td>R$ {{ frete['valor'] }}</td>
+            <td>R$ {{ frete['valorGratis'] }}</td>
+            <td>
+              <mat-icon color="primary" class="edit-icon" (click)="onEdit(frete)">create</mat-icon>
+              <mat-icon color="warn" class="delete-icon" (click)="onDelete(frete)">delete_sweep</mat-icon>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+
+      <div class="save-button" fxLayout="row" fxLayoutAlign="center">
+        <button (click)="mostrarCadastroFrete()" class="col-auto" mat-raised-button color="primary">Cadastrar
+          Frete</button>
+      </div>
+    </div>
+  </div>
+</div>

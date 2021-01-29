@@ -6,12 +6,22 @@
       </mat-card-title>
     </div>
 
-    <mat-radio-group class="row" aria-label="Select an option">
-      <div *ngFor="let endereco of enderecosList" class="col-12 text-star d-flex justify-content-start">
-        <mat-radio-button class="mt-4" [value]="endereco.numero"> {{ endereco.CEP }} - {{ endereco.complemento }} - {{ endereco.numero}} - {{ endereco.rua}} - {{ endereco.cidade}}
+    <mat-radio-group [(ngModel)]="enderecoSelecionado" class="row" aria-label="Select an option">
+      <div fxLayout="row" fxLayoutAlign="start" *ngFor="let endereco of enderecosList">
+        <mat-radio-button class="mt-4" [value]="endereco">
+          <div fxLayout="column" fxLayout="start"> 
+            <span>{{ endereco.rua}}, {{endereco.numero}}</span>
+            <span *ngIf="endereco.complemento">{{ endereco.complemento }}</span>
+            <span>{{ endereco.CEP }} - {{ endereco.cidade}}</span>
+          </div>        
         </mat-radio-button>
       </div>
     </mat-radio-group>
+
+    <div fxLayout="row" fxLayoutAlign="center">
+      <button [disabled]="!enderecoSelecionado" (click)="onSelecionarEndereco()" 
+        class="col-auto" mat-raised-button color="primary">Selecionar Endereço</button>
+    </div>
 
     <div class="row">
       <mat-card-title>

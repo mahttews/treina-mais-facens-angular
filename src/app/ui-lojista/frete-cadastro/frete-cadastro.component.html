@@ -1,0 +1,27 @@
+<div class="container">
+  <form action="" [formGroup]="freteGroup">
+    <mat-form-field fxLayout="row" fxLayoutAlign="center">
+      <mat-label>Distancia Mínima (KM)</mat-label>
+      <input formControlName="de" matInput>
+    </mat-form-field>
+
+    <mat-form-field fxLayout="row" fxLayoutAlign="center">
+      <mat-label>Distancia Máxima (KM)</mat-label>
+      <input formControlName="ate" matInput>
+    </mat-form-field>
+
+    <mat-form-field fxLayout="row" fxLayoutAlign="center">
+      <mat-label>Valor do Frete</mat-label>
+      <input formControlName="valor" matInput>
+    </mat-form-field>
+
+    <mat-form-field fxLayout="row" fxLayoutAlign="center">
+      <mat-label>Grátis a partir de (R$)</mat-label>
+      <input formControlName="valorGratis" matInput>
+    </mat-form-field>
+
+    <div fxLayout="row" fxLayoutAlign="center">
+      <button (click)="onSalvar()" mat-raised-button color="primary">Salvar</button>
+    </div>
+  </form>
+</div>

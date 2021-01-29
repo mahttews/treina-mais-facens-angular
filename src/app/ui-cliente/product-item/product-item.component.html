@@ -1,0 +1,13 @@
+<div *ngIf="product" class="product">
+    <div class="product-img">
+        <img src="" alt="">
+    </div>
+    <div class="product-description">
+        <span>{{product.id}}</span>
+        <span (click)="itemClicked()">{{product.name}}</span>
+    </div>
+    <div class="product-price">
+        <span>VALOR</span>
+        <span>R$ {{product.price}}</span>
+    </div>
+</div>

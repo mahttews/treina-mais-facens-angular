@@ -1,5 +1,12 @@
 import { Injectable } from '@angular/core';
 import { AngularFirestore } from '@angular/fire/firestore';
+import { map } from 'rxjs/operators';
+
+export interface Product {
+  id: string,
+  name: string,
+  price: string
+}
 
 @Injectable({
   providedIn: 'root'
@@ -7,14 +14,35 @@ import { AngularFirestore } from '@angular/fire/firestore';
 export class FirestoreService {
 
   constructor(
-    private _firestore: AngularFirestore,
+    private _fireStore: AngularFirestore
   ) { }
 
-  setCollection(data: any, collection: any) {
-    return this._firestore.collection(collection).add(data);
+  getProducts() {
+    return this._fireStore.collection<Product>('produtos').valueChanges()
   }
 
-  getColletion(collectionName: any) {
-    return this._firestore.collection(collectionName).valueChanges();
+  getProduct(id: number) {
+    return this._fireStore.collection<Product>('produtos', ref => ref.where('id', '==', id)).valueChanges().pipe(
+      map( (produtos: any) => {
+        return produtos[0] || undefined;
+      })
+    )
+  }
+
+  setCollection(data: any, collectionName: any): any {
+    if ( data.id ) {
+      return this._fireStore.doc(`${collectionName}/${data.id}`).update({...data})
+    } else {
+      let id = this._fireStore.createId()    
+      return this._fireStore.doc(`${collectionName}/${id}`).set({...data, id})
+    }
+  }
+
+  getCollection(collectionName: any) {
+    return this._fireStore.collection(collectionName).valueChanges();
+  }
+
+  deleteDocument(id: any, collectionName: any): any {
+    return this._fireStore.doc(`${collectionName}/${id}`).delete();
   }
 }

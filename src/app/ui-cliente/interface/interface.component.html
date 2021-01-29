@@ -1,0 +1,23 @@
+<app-product-item [product]="produto$ | async"></app-product-item>
+
+<mat-form-field appearance="fill">
+    <mat-label>Quantidade</mat-label>
+    <input matInput type="number" placeholder="Ex. 1">
+</mat-form-field>
+<br>
+<div>
+<mat-form-field class="cep">
+    <mat-label>CEP</mat-label>
+    <input [(ngModel)]="cepEntrega" matInput placeholder="Ex. 18270-000" >
+  </mat-form-field>
+  <button (click)="mostrarCadastroEndereco()" mat-mini-fab aria-label="Cadastro de Endereço">
+    <mat-icon>directions</mat-icon>
+  </button>
+<br>  
+  <b>Total:</b>
+
+<div>
+  <button mat-stroked-button>Finalizar Compra</button>
+<br>
+  <button type="submit">Comprar mais Produtos</button>
+</div>

@@ -1,0 +1,36 @@
+input {
+    font-size: 14px;
+    border-radius: 2px;
+    padding: 8px;
+    margin-bottom: 16px;
+    border: 1px solid #BDBDBD;
+}
+
+button {
+    display: inline-flex;
+    align-items: center;
+    padding: 8px 16px;
+    border-radius: 2px;
+    font-size: 14px;
+    cursor: pointer;
+    background-color: #1976d2;
+    color: white;
+    border: none;
+    margin-right: 5px;
+}
+  
+button:hover {
+    opacity: 0.8;
+    font-weight: normal;
+}
+
+.content{
+   display: flex;
+   align-items: center;
+   flex-direction: column;
+}
+
+.footer {
+    position: fixed;
+    bottom: 5px;
+}
